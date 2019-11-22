@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link, graphql } from "gatsby";
 
+import MyNewIndexPageComponent from '../components/MyNewIndexPageComponent'
+
 import Layout from "../components/Layout";
 //import Features from '../components/Features'
 //import BlogRoll from '../components/BlogRoll'
@@ -9,6 +11,8 @@ import Layout from "../components/Layout";
 export const IndexPageTemplate = ({
   title,
   subheading,
+  paragraph,
+  multipleItems,
 }) => (
   <div>
     <div
@@ -48,6 +52,22 @@ export const IndexPageTemplate = ({
         >
           {subheading}
         </h3>
+        <p
+          style={
+            {
+              color:"blue",
+              marginTop: "52px"
+            }
+          }
+        >
+          Here's the hardcoded blue paragraph.
+          <br/>
+          <br/>
+          {paragraph}
+        </p>
+        <br/>
+        <br/>
+        <MyNewIndexPageComponent gridItems={multipleItems}/>
       </div>
     </div>
     <div
@@ -86,6 +106,8 @@ export const IndexPageTemplate = ({
 IndexPageTemplate.propTypes = {
   title: PropTypes.string,
   subheading: PropTypes.string,
+  paragraph: PropTypes.string,
+  multipleItems: PropTypes.object,
 };
 
 const IndexPage = ({ data }) => {
@@ -96,6 +118,8 @@ const IndexPage = ({ data }) => {
       <IndexPageTemplate
         title={frontmatter.title}
         subheading={frontmatter.subheading}
+        paragraph={frontmatter.paragraph}
+        multipleItems={frontmatter.multipleItems}
       />
     </Layout>
   );
@@ -117,6 +141,12 @@ export const pageQuery = graphql`
       frontmatter {
         title
         subheading
+        paragraph
+        multipleItems {
+          title
+          description
+          finalparagraph
+        }
       }
     }
   }
